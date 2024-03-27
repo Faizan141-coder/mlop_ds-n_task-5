@@ -1,20 +1,17 @@
-# Use official Python image as the base image
-FROM python:3.9-slim
+# Use the official Python image as a base image
+FROM python:3.8-slim
 
-# Set working directory
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy requirements file
-COPY requirements.txt .
+# Copy the Flask app code to the container
+COPY . /app
 
-# Install Flask and other dependencies
-RUN pip install -r requirements.txt
+# Install dependencies
+RUN pip install Flask pymongo flask_cors
 
-# Copy all source code
-COPY . .
-
-# Expose port 5000
+# Expose the Flask port
 EXPOSE 5000
 
-# Command to run the Flask app
+# Command to run the Flask application
 CMD ["python", "app.py"]
