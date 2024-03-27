@@ -1,8 +1,6 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 const Login = () => {
@@ -10,33 +8,20 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
 
-  const router = useRouter();
-
   const handleLogin = async () => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        `https://mind-care-server-t1by.vercel.app/login/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            name,
-          }),
-        }
-      );
-
-      if (!email) {
-        throw new Error("Email is required");
-      }
-
-      if (!name) {
-        throw new Error("Password is required");
-      }
+      const response = await fetch('http://127.0.0.1:5000/api/save-data', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+        }),
+      });
 
       if (response.status === 200) {
         toast.success("Logged in successfully");
